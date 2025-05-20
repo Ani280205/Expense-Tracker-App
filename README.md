@@ -36,7 +36,7 @@
 <hr/>
 
 <h2>📁 Project Structure</h2>
-  Expense-Tracker-App/
+<pre>  Expense-Tracker-App/
 ├── Backend/
 │   ├── controllers/
 │   ├── models/
@@ -51,6 +51,7 @@
             ├── pages/
             ├── context/
             └── App.js
+</pre>
 
 <hr/>
 
@@ -63,12 +64,82 @@
 
 <h2>Installation</h2>
 <ol>
-           <li>Clone the repository:
-             git clone https://github.com/Ani280205/Expense-Tracker-App.git
-cd Expense-Tracker-App
-
+           <li>
+            Clone the repository:
+           git clone https://github.com/Ani280205/Expense-Tracker-App.git
+           cd Expense-Tracker-App
            </li>
+           <li>
+            Backend Setup:
+           cd Backend
+           npm install
+           </li>
+           <ul>
+                      <li>
+                      Create a .env file in the Backend directory with the following variables:
+                      PORT=5000
+                      MONGO_URI=your_mongodb_connection_string
+                      JWT_SECRET=your_jwt_secret
+                       </li>
+                      <li>
+                      Start the backend server:
+                      npm start
+                      </li>
+           </ul>
+           <li>
+           Frontend Setup:
+           cd ../Frontend/expense-tracker
+           npm install
+           </li>
+            <ul>
+                      <li>
+                      Start the frontend development server: 
+                      npm run dev
+                       </li>
+           </ul>
 </ol>
+
+<hr/>
+
+<h2>🔒 Environment Variables</h2>
+
+<p>Ensure the following environment variables are set in your .env file within the Backend directory:</p>
+<ul>
+           <li>PORT: Port number for the server (e.g., 5000)</li>
+           <li>MONGO_URI: MongoDB connection string</li>
+           <li>JWT_SECRET: Secret key for JWT authentication</li>
+</ul>
+
+<hr/>
+
+<h2>📌 Future Enhancements</h2>
+<ul>
+           <li>Exporting reports as PDF or CSV</li>
+           <li>Budget planning and alerts</li>
+           <li>Multi-user support with shared expenses</li>
+           <li>Integration with third-party financial APIs</li>
+</ul>
+
+<hr/>
+
+<h2>🤝 Contributing</h2>
+
+<p>Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.</p>
+
+<hr/>
+
+<h2>📄 License</h2>
+
+<p>This project is open-source and available under the MIT License.</p>
+
+<hr/>
+
+<h2>📬 Contact</h2>
+
+<p>Created by Ani280205, Pranav, Prince & Manish. Feel free to reach out for any queries or collaborations.</p>
+
+<hr/>
+
 
 
 
