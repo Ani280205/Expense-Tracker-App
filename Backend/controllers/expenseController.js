@@ -7,24 +7,35 @@ exports.addExpense = async (req, res) => {
 
     try {
         const { icon, category, amount, date } = req.body;
+        console.log('Received expense data:', { icon, category, amount, date });
 
         // Validation: Check for missing fields
         if (!category || !amount || !date) {
-            return res.status(400).json({ message: "All fields are required "});
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        // Validate amount is a number
+        if (isNaN(amount) || Number(amount) <= 0) {
+            return res.status(400).json({ message: "Amount must be a positive number" });
         }
         
         const newExpense = new Expense({
             userId,
             category,
-            source,
-            amount,
-            date: new Date(date)
+            amount: Number(amount),
+            date: new Date(date),
+            icon: icon || "💰"
         });
 
-        await newExpense.save();
-        res.status(200).json(newExpense);
+        const savedExpense = await newExpense.save();
+        console.log('Saved expense:', savedExpense);
+        res.status(200).json(savedExpense);
     } catch (error) {
-        res.status(500).json({ message: "Server Error" });
+        console.error('Error adding expense:', error);
+        res.status(500).json({ 
+            message: "Server Error", 
+            error: error.message 
+        });
     }
 }
 

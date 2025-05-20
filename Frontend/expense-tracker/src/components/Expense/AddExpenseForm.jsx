@@ -1,57 +1,64 @@
-import React, { useState } from 'react';
-import Entry from '../Inputs/Entry';
+import React, { useState } from "react";
+import Entry from "../Inputs/Entry";
 import EmojiPickerPopup from '../EmojiPickerPopup';
 
 const AddExpenseForm = ({ onAddExpense }) => {
-    const [income, setIncome] = useState({
+    const [expense, setExpense] = useState({
         category: "",
         amount: "",
         date: "",
         icon: "",
     });
 
-    const handleChange = (key, value) => setIncome({...income, [key]: value});
+    const handleChange = (key, value) => setExpense({...expense, [key]: value});
   
-    return <div>
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onAddExpense(expense);
+    };
+  
+    return <form onSubmit={handleSubmit}>
         <EmojiPickerPopup
-            icon={income.icon}
+            icon={expense.icon}
             onSelect={(selectedIcon) => handleChange("icon", selectedIcon)}
         />
 
         <Entry
-            value={income.category}
+            value={expense.category}
             onChange={({ target }) => handleChange("category", target.value)}
             label="Category"
             placeholder="Rent, Groceries, etc"
             type="text"
+            required
         />
 
         <Entry
-            value={income.amount}
+            value={expense.amount}
             onChange={({ target }) => handleChange("amount", target.value)}
             label="Amount"
-            placeholder=""
+            placeholder="Enter amount"
             type="number"
+            required
         />
 
         <Entry
-            value={income.date}
+            value={expense.date}
             onChange={({ target }) => handleChange("date", target.value)}
             label="Date"
-            placeholder=""
+            placeholder="Select date"
             type="date"
+            required
         />    
 
-        <div className='flex justify-end mt-6'>
+        <div className="flex justify-end mt-6">
             <button
-                type='button'
-                className='add-btn add-btn-fill'
-                onClick={()=>onAddExpense(income)}
+                type="submit"
+                className="add-btn add-btn-fill"
             >
                 Add Expense
             </button>
         </div>    
-    </div>
+    </form>
 };
 
 export default AddExpenseForm

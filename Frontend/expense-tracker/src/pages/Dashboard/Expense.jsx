@@ -15,12 +15,12 @@ const Expense = () => {
   useUserAuth();
 
   const [expenseData, setExpenseData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [openDeleteAlert, setOpenDeleteAlert] = useState({
-    show: false,
-    data: null,
-  });
-  const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [openDeleteAlert, setOpenDeleteAlert] = useState({
+      show: false,
+      data: null,
+    });
+    const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false);
 
    // Get All Expense Details
   const fetchExpenseDetails = async () => {
@@ -47,7 +47,7 @@ const Expense = () => {
     const { category, amount, date, icon } = expense;
 
     // Validation Checks
-    if (!category.trim()) {
+    if (!category || !category.trim()) {
       toast.error("Category is required.");
       return;
     }
@@ -59,25 +59,25 @@ const Expense = () => {
 
     if (!date) {
       toast.error("Date is required.");
-      return
+      return;
     }
 
     try {
-      await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, {
-        category,
-        amount,
+      const response = await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, {
+        category: category.trim(),
+        amount: Number(amount),
         date,
-        icon,
+        icon: icon || "💰", // Default icon if none selected
       });
 
-      setOpenAddExpenseModal(false);
-      toast.success("Expense added successfully");
-      fetchExpenseDetails();
+      if (response.data) {
+        setOpenAddExpenseModal(false);
+        toast.success("Expense added successfully");
+        fetchExpenseDetails();
+      }
     } catch (error) {
-      console.error(
-        "Error adding expense:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Error adding expense:", error);
+      toast.error(error.response?.data?.message || "Failed to add expense. Please try again.");
     }
   };
 
